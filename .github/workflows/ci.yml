@@ -1,22 +1,29 @@
 name: Java CI
 
-on: [push]
+on:
+  push:
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Lấy code từ repo
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # 2. Cài Java (FIX lỗi của bạn ở đây)
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
+          distribution: 'temurin'
           java-version: '17'
 
+      # 3. Compile code
       - name: Compile
-        run: javac VoucherCalculator.java VoucherCalculatorTest.java
+        run: javac *.java
 
+      # 4. Chạy test
       - name: Run Test
         run: java VoucherCalculatorTest
